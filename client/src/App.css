@@ -1,0 +1,123 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* import React, { useState, useRef } from "react";
+
+function AudioTranscriber() {
+  const [recording, setRecording] = useState(false);
+  const [transcript, setTranscript] = useState("");
+  const [error, setError] = useState("");
+  const mediaRecorderRef = useRef(null);
+  const chunksRef = useRef([]);
+
+  const speakText = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    speechSynthesis.speak(utterance);
+  };
+
+  const startRecording = async () => {
+    setTranscript("");
+    setError("");
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      chunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) {
+          chunksRef.current.push(e.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        const blob = new Blob(chunksRef.current, { type: "audio/webm" });
+        const formData = new FormData();
+        formData.append("audio", blob, "recording.webm");
+
+        try {
+          const response = await fetch("http://localhost:3000/transcribe", {
+            method: "POST",
+            body: formData,
+          });
+          const data = await response.json();
+          // if (!response.ok) throw new Error(data.error || "Transcription failed");
+
+          setTranscript(data);
+          speakText(data.reply);  // 🔊 Speak the reply
+        } catch (err) {
+          setError(err.message);
+        }
+      };
+
+      mediaRecorder.start();
+      mediaRecorderRef.current = mediaRecorder;
+      setRecording(true);
+    } catch (err) {
+      setError("Mic access denied or not available.");
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+      setRecording(false);
+    }
+  };
+
+  return (
+    <div style={{ maxWidth: "500px", margin: "auto", padding: "2rem" }}>
+      <h2>Speak to Transcribe</h2>
+      <button onClick={recording ? stopRecording : startRecording}>
+        {recording ? "Stop Recording" : "Start Recording"}
+      </button>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {transcript && (
+        <div>
+          <h3>Transcript:</h3>
+          <p><strong>Question:</strong> {transcript.question}</p>
+          <p><strong>Answer:</strong> {transcript.reply}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default AudioTranscriber; */
